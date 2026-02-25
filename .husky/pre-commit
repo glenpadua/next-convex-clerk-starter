@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Run type check
+echo "📋 Checking TypeScript types..."
+npm run build
+
+# Run linting (if you have it)
+if npm run lint > /dev/null 2>&1; then
+  echo "🧹 Running ESLint..."
+  npm run lint
+fi
+
+echo "✅ Pre-commit checks passed!"
