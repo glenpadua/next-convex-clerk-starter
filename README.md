@@ -6,7 +6,7 @@ Personal starter template for shipping full-stack web apps quickly.
 
 - Next.js (App Router, TypeScript)
 - Convex (database + server functions)
-- Tailwind CSS + shadcn/ui
+- Tailwind CSS v4 + shadcn/ui
 - Clerk (optional auth pages)
 
 ## What you get
@@ -145,7 +145,7 @@ npx convex deploy
 
 ## shadcn/ui setup and theming
 
-This starter already ships with a current `components.json` and Tailwind CSS variable setup, so normal shadcn CLI commands work out of the box:
+This starter already ships with a current `components.json` and Tailwind CSS v4 CSS-first setup in `app/globals.css`, so normal shadcn CLI commands work out of the box:
 
 ```bash
 npx shadcn@latest add button
@@ -168,9 +168,9 @@ npx shadcn@latest create --preset "<your-preset-url>" --template next
 Notes:
 - `create` will refuse to run if `components.json` already exists, so removing it first is expected for this workflow.
 - The starter app lives under `/dashboard` and `/dashboard/todos`, so letting `create` overwrite `/` is safe.
-- The shared UI components in this repo use semantic shadcn tokens without starter-specific visual overrides, so they should inherit your generated preset cleanly.
+- The shared UI components in this repo use semantic shadcn tokens without starter-specific visual overrides, so they inherit the generated preset cleanly.
 - This repo keeps `@/components/ui`, `@/lib`, and `@/hooks` aliases aligned with the current shadcn CLI, so future `npx shadcn@latest add ...` commands continue to work after you adopt a preset.
-- If `create` adds `@import "tw-animate-css";`, `@import "shadcn/tailwind.css";`, or `@apply border-border outline-ring/50;` back into `app/globals.css`, remove them. This starter is still on Tailwind CSS 3, and those generated lines are not compatible here.
+- This repo is already on Tailwind CSS v4, so current shadcn Create output should land much closer to the generated default without manual CSS cleanup.
 
 Useful docs:
 - [https://ui.shadcn.com/docs](https://ui.shadcn.com/docs)
