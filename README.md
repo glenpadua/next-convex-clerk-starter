@@ -106,6 +106,7 @@ npm run dev
 npm run dev:turbo
 npm run build
 npm run start
+npm run shadcn:sync
 npm run convex:configure
 npm run convex:dev
 npm run convex:codegen
@@ -146,27 +147,28 @@ npx shadcn@latest add button
 npx shadcn@latest add select
 ```
 
-If you want a full custom shadcn theme, use [shadcn Create](https://ui.shadcn.com/create) to generate a preset URL and scaffold a reference app from it:
+If you want to re-theme this starter from a [shadcn Create](https://ui.shadcn.com/create) preset, the supported in-repo workflow for this starter is:
 
 ```bash
-npx shadcn@latest create --preset "https://ui.shadcn.com/init?base=radix&style=maia&baseColor=stone&theme=amber&iconLibrary=tabler&font=noto-sans&menuAccent=subtle&menuColor=default&radius=default&template=next&rtl=false" --template next
+rm components.json
+npx shadcn@latest create --preset "https://ui.shadcn.com/init?base=radix&style=lyra&baseColor=gray&theme=yellow&iconLibrary=remixicon&font=jetbrains-mono&menuAccent=subtle&menuColor=inverted&radius=none&template=next&rtl=false" --template next
+npm run shadcn:sync
 ```
 
-Recommended workflow for this starter:
+What `npm run shadcn:sync` does:
 
-1. Run the `create --preset ...` command in a temporary directory or sibling repo.
-2. Copy the shadcn-owned files you want back into this starter:
-   - `components.json`
-   - `app/globals.css`
-   - any regenerated `components/ui/*`
-   - font changes from `app/layout.tsx` if your preset picked a different font
-3. Keep the Convex/Clerk app wiring from this starter and only bring over the UI/theme pieces.
-4. Run `npm install` if the preset switched icon libraries or added UI dependencies.
+1. Keeps the generated `components.json` and theme tokens in `app/globals.css`.
+2. Restores starter-owned files that `create` currently overwrites:
+   - `app/page.tsx`
+   - core UI primitives used by the starter app
+3. Removes the generated showcase/demo files that are not part of this starter.
+4. Strips CSS imports that `create` adds but that do not work with this starter's current setup.
 
 Notes:
+- `create` will refuse to run if `components.json` already exists, so removing it first is expected for this workflow.
 - This repo keeps `@/components/ui`, `@/lib`, and `@/hooks` aliases aligned with the current shadcn CLI, so future `npx shadcn@latest add ...` commands continue to work after you adopt a preset.
-- Presets are broader than color tokens; they can also change fonts, icon libraries, and the generated component source.
-- For small tweaks, editing tokens directly in `app/globals.css` is still the fastest path.
+- The generated preset can still add dependencies or change icon libraries, so run `npm install` if your local install looks out of sync after `create`.
+- For smaller tweaks, editing tokens directly in `app/globals.css` is still the fastest path.
 
 Useful docs:
 - [https://ui.shadcn.com/docs](https://ui.shadcn.com/docs)
