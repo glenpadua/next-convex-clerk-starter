@@ -1,9 +1,11 @@
 import "./globals.css"
 
 import type { Metadata } from "next"
-import { Inter, JetBrains_Mono, Outfit } from "next/font/google"
+import { JetBrains_Mono, Outfit } from "next/font/google"
 
 import ConvexClientProvider from "@/app/providers/convex-client-provider"
+import { ModeToggle } from "@/components/mode-toggle"
+import { ThemeProvider } from "@/components/theme-provider"
 import OptionalClerkProvider from "@/app/providers/optional-clerk-provider"
 import { Toaster } from "@/components/ui/sonner"
 
@@ -31,12 +33,17 @@ export default function RootLayout({
 }>) {
   return (
     <OptionalClerkProvider>
-      <html lang="en" className={outfit.variable}>
+      <html lang="en" className={outfit.variable} suppressHydrationWarning>
         <body className={`${outfit.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-          <ConvexClientProvider>
-            {children}
-            <Toaster richColors position="top-right" />
-          </ConvexClientProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <div className="fixed top-4 right-4 z-50">
+              <ModeToggle />
+            </div>
+            <ConvexClientProvider>
+              {children}
+              <Toaster richColors position="bottom-right" />
+            </ConvexClientProvider>
+          </ThemeProvider>
         </body>
       </html>
     </OptionalClerkProvider>

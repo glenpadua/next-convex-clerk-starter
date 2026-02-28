@@ -14,6 +14,7 @@ Personal starter template for shipping full-stack web apps quickly.
 - shadcn theme/root page at `/`
 - Starter dashboard at `/dashboard`
 - Public todo app at `/dashboard/todos` (works without auth)
+- Built-in light/dark/system theme switcher
 - Optional Clerk auth routes:
   - `/sign-in/[[...sign-in]]`
   - `/sign-up/[[...sign-up]]`
@@ -157,6 +158,7 @@ Current preset in this repo:
 - base color: `stone`
 - icon library: `tabler`
 - fonts: `Outfit` + `JetBrains Mono`
+- theme switching: `next-themes` with a built-in light/dark/system toggle
 
 If you want to re-run shadcn Create in place:
 
