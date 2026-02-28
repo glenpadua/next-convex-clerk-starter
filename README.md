@@ -123,24 +123,39 @@ npx convex deploy
 
 ## shadcn/ui setup and theming
 
-This repo is already configured with `components.json` and Tailwind CSS variables.
-
-Add components as needed:
+This starter already ships with a current `components.json` and Tailwind CSS variable setup, so normal shadcn CLI commands work out of the box:
 
 ```bash
 npx shadcn@latest add button
 npx shadcn@latest add select
 ```
 
-Theme workflow:
+If you want a full custom shadcn theme, use [shadcn Create](https://ui.shadcn.com/create) to generate a preset URL and scaffold a reference app from it:
 
-1. Update tokens in `app/globals.css` (`--primary`, `--background`, `--radius`, etc.).
-2. Add or refine component styles in `components/ui/*`.
-3. Optionally adjust `components.json` base color/style.
+```bash
+npx shadcn@latest create --preset "https://ui.shadcn.com/init?base=radix&style=maia&baseColor=stone&theme=amber&iconLibrary=tabler&font=noto-sans&menuAccent=subtle&menuColor=default&radius=default&template=next&rtl=false" --template next
+```
+
+Recommended workflow for this starter:
+
+1. Run the `create --preset ...` command in a temporary directory or sibling repo.
+2. Copy the shadcn-owned files you want back into this starter:
+   - `components.json`
+   - `app/globals.css`
+   - any regenerated `components/ui/*`
+   - font changes from `app/layout.tsx` if your preset picked a different font
+3. Keep the Convex/Clerk app wiring from this starter and only bring over the UI/theme pieces.
+4. Run `npm install` if the preset switched icon libraries or added UI dependencies.
+
+Notes:
+- This repo keeps `@/components/ui`, `@/lib`, and `@/hooks` aliases aligned with the current shadcn CLI, so future `npx shadcn@latest add ...` commands continue to work after you adopt a preset.
+- Presets are broader than color tokens; they can also change fonts, icon libraries, and the generated component source.
+- For small tweaks, editing tokens directly in `app/globals.css` is still the fastest path.
 
 Useful docs:
 - [https://ui.shadcn.com/docs](https://ui.shadcn.com/docs)
 - [https://ui.shadcn.com/docs/theming](https://ui.shadcn.com/docs/theming)
+- [https://ui.shadcn.com/create](https://ui.shadcn.com/create)
 
 ## Project structure
 
