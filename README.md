@@ -69,6 +69,12 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+`npm run dev` uses webpack-based dev mode for stability. If you want to try Turbopack explicitly, run:
+
+```bash
+npm run dev:turbo
+```
+
 ## Optional Clerk setup
 
 You only need this if you want the auth pages active.
@@ -88,6 +94,7 @@ That’s it. Convex does not require Clerk env vars in this starter by default.
 
 ```bash
 npm run dev
+npm run dev:turbo
 npm run build
 npm run start
 npm run convex:configure
