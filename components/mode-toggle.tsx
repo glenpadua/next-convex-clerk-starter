@@ -36,7 +36,13 @@ export function ModeToggle({ className }: { className?: string }) {
 
   const activeTheme = mounted ? ((theme ?? "system") as ThemeOption) : "system"
   const ResolvedIcon =
-    resolvedTheme === "dark" ? IconMoon : resolvedTheme === "light" ? IconSun : IconDeviceDesktop
+    !mounted
+      ? IconDeviceDesktop
+      : resolvedTheme === "dark"
+        ? IconMoon
+        : resolvedTheme === "light"
+          ? IconSun
+          : IconDeviceDesktop
 
   return (
     <DropdownMenu>
