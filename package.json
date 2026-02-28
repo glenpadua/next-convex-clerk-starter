@@ -1,9 +1,14 @@
 {
+  "name": "next-convex-clerk-starter",
+  "version": "0.1.0",
+  "description": "Minimal full-stack starter with Next.js, Convex, Clerk, and shadcn/ui.",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "convex:configure": "convex dev --configure",
     "convex:dev": "convex dev",
     "convex:codegen": "convex codegen"
   },

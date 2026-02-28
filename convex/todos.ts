@@ -2,7 +2,6 @@ import { ConvexError, v } from "convex/values"
 
 import type { Id } from "./_generated/dataModel"
 import { mutation, query } from "./_generated/server"
-import { getViewer, requireViewer } from "./users"
 
 const statusValidator = v.union(v.literal("all"), v.literal("active"), v.literal("completed"))
 const priorityValidator = v.union(v.literal("low"), v.literal("medium"), v.literal("high"))
@@ -13,18 +12,13 @@ export const list = query({
     search: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const user = await getViewer(ctx)
-    if (!user) {
-      return []
-    }
-
     const status = args.status ?? "all"
     const search = args.search?.trim().toLowerCase() ?? ""
 
-    let todos = await ctx.db
-      .query("todos")
-      .withIndex("by_user", (q) => q.eq("userId", user._id))
-      .collect()
+    let todos = await ctx.db.query("todos").withIndex("by_updated_at").order("desc").collect()
+
+    // Public/unassigned todos only by default.
+    todos = todos.filter((todo) => !todo.ownerKey)
 
     if (status === "active") {
       todos = todos.filter((todo) => !todo.completed)
@@ -41,7 +35,7 @@ export const list = query({
       })
     }
 
-    return todos.sort((a, b) => b.updatedAt - a.updatedAt)
+    return todos
   },
 })
 
@@ -53,8 +47,6 @@ export const create = mutation({
   },
   returns: v.id("todos"),
   handler: async (ctx, args): Promise<Id<"todos">> => {
-    const user = await requireViewer(ctx)
-
     const title = args.title.trim()
     if (!title) {
       throw new ConvexError("Title is required")
@@ -63,7 +55,6 @@ export const create = mutation({
     const now = Date.now()
 
     return ctx.db.insert("todos", {
-      userId: user._id,
       title,
       description: args.description?.trim() || undefined,
       priority: args.priority ?? "medium",
@@ -80,10 +71,9 @@ export const toggle = mutation({
   },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const user = await requireViewer(ctx)
     const todo = await ctx.db.get(args.id)
 
-    if (!todo || todo.userId !== user._id) {
+    if (!todo || !!todo.ownerKey) {
       throw new ConvexError("Todo not found")
     }
 
@@ -102,10 +92,9 @@ export const remove = mutation({
   },
   returns: v.null(),
   handler: async (ctx, args) => {
-    const user = await requireViewer(ctx)
     const todo = await ctx.db.get(args.id)
 
-    if (!todo || todo.userId !== user._id) {
+    if (!todo || !!todo.ownerKey) {
       throw new ConvexError("Todo not found")
     }
 

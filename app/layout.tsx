@@ -1,10 +1,10 @@
 import "./globals.css"
 
 import type { Metadata } from "next"
-import { ClerkProvider } from "@clerk/nextjs"
 import { Inter, JetBrains_Mono } from "next/font/google"
 
 import ConvexClientProvider from "@/app/providers/convex-client-provider"
+import OptionalClerkProvider from "@/app/providers/optional-clerk-provider"
 import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({
@@ -21,8 +21,8 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Next.js + Convex + Clerk Starter",
-    template: "%s | Starter",
+    default: "next-convex-clerk-starter",
+    template: "%s | next-convex-clerk-starter",
   },
   description:
     "Personal project starter with Next.js, Convex, Clerk, and shadcn/ui.",
@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider>
+    <OptionalClerkProvider>
       <html lang="en">
         <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
           <ConvexClientProvider>
@@ -43,6 +43,6 @@ export default function RootLayout({
           </ConvexClientProvider>
         </body>
       </html>
-    </ClerkProvider>
+    </OptionalClerkProvider>
   )
 }

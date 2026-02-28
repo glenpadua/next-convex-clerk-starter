@@ -1,4 +1,4 @@
-# Next.js + Convex + Clerk Starter
+# next-convex-clerk-starter
 
 Personal starter template for shipping full-stack web apps quickly.
 
@@ -6,25 +6,25 @@ Personal starter template for shipping full-stack web apps quickly.
 
 - Next.js (App Router, TypeScript)
 - Convex (database + server functions)
-- Clerk (authentication)
 - Tailwind CSS + shadcn/ui
+- Clerk (optional auth pages)
 
 ## What you get
 
 - Public landing page at `/`
-- Protected todo app at `/todos`
-- Clerk auth routes:
+- Public todo app at `/todos` (works without auth)
+- Optional Clerk auth routes:
   - `/sign-in/[[...sign-in]]`
   - `/sign-up/[[...sign-up]]`
 - Convex API surface:
-  - `api.users.viewer`
-  - `api.users.syncUser`
   - `api.todos.list`
   - `api.todos.create`
   - `api.todos.toggle`
   - `api.todos.remove`
 
-## Quick start
+## Quick start (no auth required)
+
+Node.js 20+ recommended.
 
 1. Install dependencies
 
@@ -32,55 +32,36 @@ Personal starter template for shipping full-stack web apps quickly.
 npm install
 ```
 
-2. Create a Clerk app
-
-- Create a Clerk application.
-- Copy:
-  - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
-  - `CLERK_SECRET_KEY`
-- In Clerk, create a JWT template named `convex`.
-- Copy your Clerk issuer domain for Convex (`CLERK_JWT_ISSUER_DOMAIN`).
-
-Clerk docs: [https://clerk.com/docs](https://clerk.com/docs)
-
-3. Set up or connect a Convex project
+2. Set up or connect a Convex project
 
 Option A (recommended):
 
 ```bash
-npx convex dev
+npx convex dev --configure
 ```
 
+Use `--configure` on first setup (or when cloning this starter) so Convex doesn't silently reuse a previous deployment.
 This opens interactive setup where you can create a new project or connect an existing one.
 
 Option B (dashboard first):
 
 - Create/manage a project in Convex dashboard.
-- Then run `npx convex dev` in this repo and select that project.
+- Then run `npx convex dev --configure` in this repo and select that project.
 
 Convex project docs: [https://docs.convex.dev/dashboard/projects](https://docs.convex.dev/dashboard/projects)
 
-4. Configure environment variables
-
-Create `.env.local` (or update it):
+3. Configure `.env.local`
 
 ```bash
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
-CLERK_SECRET_KEY=...
-NEXT_PUBLIC_CONVEX_URL=...
-```
-
-In Convex dashboard environment variables, add:
-
-```bash
-CLERK_JWT_ISSUER_DOMAIN=...
+cp .env.local.example .env.local
 ```
 
 Notes:
-- `NEXT_PUBLIC_CONVEX_URL` is shown after `npx convex dev` connects.
+- `CONVEX_DEPLOYMENT` and `NEXT_PUBLIC_CONVEX_URL` are shown/populated after `npx convex dev --configure` connects.
 - Keep `npx convex dev` running while developing.
+- If this repo points at the wrong deployment, rerun `npx convex dev --configure`.
 
-5. Run the app
+4. Run the app
 
 ```bash
 npm run dev
@@ -88,12 +69,28 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Optional Clerk setup
+
+You only need this if you want the auth pages active.
+
+1. Create a Clerk app and get:
+
+```bash
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
+CLERK_SECRET_KEY=...
+```
+
+2. Add those keys to `.env.local`.
+
+That’s it. Convex does not require Clerk env vars in this starter by default.
+
 ## Scripts
 
 ```bash
 npm run dev
 npm run build
 npm run start
+npm run convex:configure
 npm run convex:dev
 npm run convex:codegen
 ```
@@ -119,10 +116,9 @@ npx convex deploy
 ### Vercel (frontend)
 
 - Import your GitHub repo into Vercel.
-- Add environment variables:
-  - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
-  - `CLERK_SECRET_KEY`
+- Add environment variable:
   - `NEXT_PUBLIC_CONVEX_URL`
+- Optionally add Clerk keys if you want auth pages.
 - Deploy.
 
 ## shadcn/ui setup and theming
@@ -163,3 +159,7 @@ components/
   todos/
   ui/
 ```
+
+## License
+
+MIT. See [LICENSE](./LICENSE).

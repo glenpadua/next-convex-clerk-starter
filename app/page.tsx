@@ -1,11 +1,4 @@
 import Link from "next/link"
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -14,9 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 const setupChecklist = [
   "Install dependencies with npm install.",
-  "Connect Convex with npx convex dev.",
-  "Add Clerk keys and NEXT_PUBLIC_CONVEX_URL to .env.local.",
-  "Start the app with npm run dev.",
+  "Connect Convex with npx convex dev --configure.",
+  "Add NEXT_PUBLIC_CONVEX_URL to .env.local.",
+  "(Optional) Configure Clerk only if you want sign-in pages.",
 ]
 
 export default function HomePage() {
@@ -26,28 +19,19 @@ export default function HomePage() {
         <div className="flex items-center gap-3">
           <Badge className="rounded-full px-3 py-1">Starter</Badge>
           <p className="text-sm text-muted-foreground">
-            Next.js + Convex + Clerk + shadcn/ui
+            Next.js + Convex + Clerk (optional) + shadcn/ui
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <SignedOut>
-            <SignInButton mode="modal">
-              <Button variant="outline">Sign in</Button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <Button>Create account</Button>
-            </SignUpButton>
-          </SignedOut>
-
-          <SignedIn>
-            <Button asChild>
-              <Link href="/todos" className="gap-2">
-                Open Todos <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <UserButton />
-          </SignedIn>
+          <Button asChild>
+            <Link href="/todos" className="gap-2">
+              Open Todos <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/sign-in">Auth Page</Link>
+          </Button>
         </div>
       </header>
 
@@ -61,9 +45,8 @@ export default function HomePage() {
               Build new projects fast with a clean full-stack baseline.
             </CardTitle>
             <p className="max-w-2xl text-sm text-muted-foreground">
-              This starter ships with Clerk auth, Convex backend functions, and
-              shadcn/ui already wired together. The default demo is a protected
-              per-user todo app.
+              The default todo app is public and works with no Clerk setup.
+              Authentication pages are still included and can be enabled when needed.
             </p>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-3">

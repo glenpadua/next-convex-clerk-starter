@@ -1,9 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { useMutation, useQuery } from "convex/react"
-import { UserButton } from "@clerk/nextjs"
 import { ArrowLeft, ListTodo, PlusCircle } from "lucide-react"
 import { toast } from "sonner"
 
@@ -26,12 +25,10 @@ export default function TodosPage() {
   const [filter, setFilter] = useState<Filter>("all")
   const [search, setSearch] = useState("")
 
-  const syncUser = useMutation(api.users.syncUser)
   const createTodo = useMutation(api.todos.create)
   const toggleTodo = useMutation(api.todos.toggle)
   const removeTodo = useMutation(api.todos.remove)
 
-  const viewer = useQuery(api.users.viewer)
   const todos = useQuery(api.todos.list, {
     status: filter,
     search: search.trim() || undefined,
@@ -39,12 +36,6 @@ export default function TodosPage() {
   const allTodos = useQuery(api.todos.list, {
     status: "all",
   })
-
-  useEffect(() => {
-    void syncUser({}).catch(() => {
-      toast.error("Unable to sync your profile in Convex.")
-    })
-  }, [syncUser])
 
   const todoItems = todos ?? []
   const todoTotals = useMemo(() => {
@@ -105,8 +96,8 @@ export default function TodosPage() {
         </Button>
 
         <div className="flex items-center gap-3">
+          <Badge variant="outline">Public demo</Badge>
           <SetupSheet />
-          <UserButton />
         </div>
       </div>
 
@@ -119,7 +110,7 @@ export default function TodosPage() {
                 <CardTitle>Todo Workspace</CardTitle>
               </div>
               <p className="text-sm text-muted-foreground">
-                {viewer?.name ? `${viewer.name}'s` : "Your"} private task list in Convex.
+                Open for unauthenticated use. Works with auth enabled too.
               </p>
             </div>
 

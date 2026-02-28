@@ -1,10 +1,7 @@
 import { AuthConfig } from "convex/server"
 
+// Optional auth config: keep providers empty by default so Convex can run
+// without any auth environment variables.
 export default {
-  providers: [
-    {
-      domain: process.env.CLERK_JWT_ISSUER_DOMAIN!,
-      applicationID: "convex",
-    },
-  ],
+  providers: [],
 } satisfies AuthConfig

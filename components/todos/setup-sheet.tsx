@@ -13,10 +13,10 @@ import {
 } from "@/components/ui/sheet"
 
 const checklist = [
-  "Run npx convex dev to create or connect a Convex project.",
+  "Run npx convex dev --configure on first setup.",
   "Copy NEXT_PUBLIC_CONVEX_URL from Convex into .env.local.",
-  "Set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY.",
-  "Set CLERK_JWT_ISSUER_DOMAIN in Convex dashboard env vars.",
+  "Start using todos right away (no auth setup required).",
+  "Optionally set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY.",
   "Deploy frontend to Vercel and backend with npx convex deploy.",
 ]
 
@@ -30,7 +30,7 @@ export function SetupSheet() {
         <SheetHeader>
           <SheetTitle>Project setup checklist</SheetTitle>
           <SheetDescription>
-            Fast path for wiring Convex + Clerk and shipping this starter.
+            Fast path for shipping with Convex first, then optional auth.
           </SheetDescription>
         </SheetHeader>
 
