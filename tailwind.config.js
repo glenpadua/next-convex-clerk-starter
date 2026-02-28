@@ -65,14 +65,9 @@ module.exports = {
         },
       },
       borderRadius: {
-        lg: "var(--radius-3)",
-        md: "var(--radius-2)",
-        sm: "var(--radius-1)",
-      },
-      boxShadow: {
-        soft: "var(--shadow-soft)",
-        card: "var(--shadow-card)",
-        float: "var(--shadow-float)",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {

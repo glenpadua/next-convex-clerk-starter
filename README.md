@@ -12,7 +12,8 @@ Personal starter template for shipping full-stack web apps quickly.
 ## What you get
 
 - Public landing page at `/`
-- Public todo app at `/todos` (works without auth)
+- Starter dashboard at `/dashboard`
+- Public todo app at `/dashboard/todos` (works without auth)
 - Optional Clerk auth routes:
   - `/sign-in/[[...sign-in]]`
   - `/sign-up/[[...sign-up]]`
@@ -106,7 +107,6 @@ npm run dev
 npm run dev:turbo
 npm run build
 npm run start
-npm run shadcn:sync
 npm run convex:configure
 npm run convex:dev
 npm run convex:codegen
@@ -147,28 +147,18 @@ npx shadcn@latest add button
 npx shadcn@latest add select
 ```
 
-If you want to re-theme this starter from a [shadcn Create](https://ui.shadcn.com/create) preset, the supported in-repo workflow for this starter is:
+If you want shadcn Create to take over the root app shell, move your work under `/dashboard`, then re-run shadcn in place:
 
 ```bash
 rm components.json
 npx shadcn@latest create --preset "https://ui.shadcn.com/init?base=radix&style=lyra&baseColor=gray&theme=yellow&iconLibrary=remixicon&font=jetbrains-mono&menuAccent=subtle&menuColor=inverted&radius=none&template=next&rtl=false" --template next
-npm run shadcn:sync
 ```
-
-What `npm run shadcn:sync` does:
-
-1. Keeps the generated `components.json` and theme tokens in `app/globals.css`.
-2. Restores starter-owned files that `create` currently overwrites:
-   - `app/page.tsx`
-   - core UI primitives used by the starter app
-3. Removes the generated showcase/demo files that are not part of this starter.
-4. Strips CSS imports that `create` adds but that do not work with this starter's current setup.
 
 Notes:
 - `create` will refuse to run if `components.json` already exists, so removing it first is expected for this workflow.
+- The starter app now lives under `/dashboard` and `/dashboard/todos`, so letting `create` overwrite `/` is safe.
+- The shared UI components in this repo use semantic shadcn tokens without starter-specific visual overrides, so they should inherit your generated preset cleanly.
 - This repo keeps `@/components/ui`, `@/lib`, and `@/hooks` aliases aligned with the current shadcn CLI, so future `npx shadcn@latest add ...` commands continue to work after you adopt a preset.
-- The generated preset can still add dependencies or change icon libraries, so run `npm install` if your local install looks out of sync after `create`.
-- For smaller tweaks, editing tokens directly in `app/globals.css` is still the fastest path.
 
 Useful docs:
 - [https://ui.shadcn.com/docs](https://ui.shadcn.com/docs)

@@ -89,9 +89,9 @@ export default function TodosPage() {
     <main className="mx-auto min-h-screen w-full max-w-6xl px-6 py-8">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <Button asChild variant="outline">
-          <Link href="/" className="gap-2">
+          <Link href="/dashboard" className="gap-2">
             <ArrowLeft className="h-4 w-4" />
-            Home
+            Dashboard
           </Link>
         </Button>
 

@@ -25,17 +25,6 @@
     --ring: oklch(0.707 0.022 261.325);
 
     --radius: 0;
-    --radius-1: 0.5rem;
-    --radius-2: 0.65rem;
-    --radius-3: 0.8rem;
-    --radius-control: 0.65rem;
-
-    --control-height: 2.5rem;
-    --control-padding-x: 0.875rem;
-
-    --shadow-soft: 0 8px 20px -14px hsl(222 47% 20% / 0.3);
-    --shadow-card: 0 12px 28px -18px hsl(222 47% 20% / 0.3);
-    --shadow-float: 0 20px 40px -24px hsl(222 47% 20% / 0.35);
     --chart-1: oklch(0.905 0.182 98.111);
     --chart-2: oklch(0.795 0.184 86.047);
     --chart-3: oklch(0.681 0.162 75.834);
@@ -92,16 +81,5 @@
 
   body {
     @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(
-        circle at 15% -10%,
-        color-mix(in oklab, var(--primary) 12%, transparent),
-        transparent 30%
-      ),
-      radial-gradient(
-        circle at 85% 0%,
-        color-mix(in oklab, var(--muted-foreground) 10%, transparent),
-        transparent 25%
-      );
   }
 }

@@ -12,7 +12,6 @@
     "dev:turbo": "next dev",
     "build": "next build",
     "start": "next start",
-    "shadcn:sync": "node scripts/shadcn-sync.mjs",
     "convex:configure": "convex dev --configure",
     "convex:dev": "convex dev",
     "convex:codegen": "convex codegen"

@@ -16,7 +16,7 @@ export default function SignUpPage() {
             Todos work without auth. Add Clerk environment variables when you want sign-up.
           </p>
           <Button asChild variant="outline">
-            <Link href="/todos">Back to Todos</Link>
+            <Link href="/dashboard/todos">Back to Todos</Link>
           </Button>
         </CardContent>
       </Card>
