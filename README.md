@@ -24,7 +24,16 @@ Personal starter template for shipping full-stack web apps quickly.
 
 ## Quick start (no auth required)
 
-Node.js 20+ recommended.
+Node.js `24.13.1` LTS recommended.
+
+If you use `nvm`:
+
+```bash
+nvm install
+nvm use
+```
+
+If you use `asdf` or another version manager that reads `.node-version`, this repo now pins the same version there as well.
 
 1. Install dependencies
 

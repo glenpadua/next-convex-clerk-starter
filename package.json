@@ -4,6 +4,9 @@
   "description": "Minimal full-stack starter with Next.js, Convex, Clerk, and shadcn/ui.",
   "private": true,
   "license": "MIT",
+  "engines": {
+    "node": ">=24.13.1 <25"
+  },
   "scripts": {
     "dev": "next dev --webpack",
     "dev:turbo": "next dev",
