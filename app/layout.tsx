@@ -1,17 +1,13 @@
 import "./globals.css"
 
 import type { Metadata } from "next"
-import { Inter, JetBrains_Mono } from "next/font/google"
+import { Inter, JetBrains_Mono, Outfit } from "next/font/google"
 
 import ConvexClientProvider from "@/app/providers/convex-client-provider"
 import OptionalClerkProvider from "@/app/providers/optional-clerk-provider"
 import { Toaster } from "@/components/ui/sonner"
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-})
+const outfit = Outfit({subsets:['latin'],variable:'--font-sans'})
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -35,8 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <OptionalClerkProvider>
-      <html lang="en">
-        <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <html lang="en" className={outfit.variable}>
+        <body className={`${outfit.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
           <ConvexClientProvider>
             {children}
             <Toaster richColors position="top-right" />

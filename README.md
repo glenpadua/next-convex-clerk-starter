@@ -11,7 +11,7 @@ Personal starter template for shipping full-stack web apps quickly.
 
 ## What you get
 
-- Public landing page at `/`
+- shadcn theme/root page at `/`
 - Starter dashboard at `/dashboard`
 - Public todo app at `/dashboard/todos` (works without auth)
 - Optional Clerk auth routes:
@@ -78,6 +78,11 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+Useful routes:
+- `/`
+- `/dashboard`
+- `/dashboard/todos`
 
 `npm run dev` uses webpack-based dev mode for stability. If you want to try Turbopack explicitly, run:
 
@@ -147,18 +152,25 @@ npx shadcn@latest add button
 npx shadcn@latest add select
 ```
 
-If you want shadcn Create to take over the root app shell, move your work under `/dashboard`, then re-run shadcn in place:
+Current preset in this repo:
+- style: `radix-mira`
+- base color: `stone`
+- icon library: `tabler`
+- fonts: `Outfit` + `JetBrains Mono`
+
+If you want to re-run shadcn Create in place:
 
 ```bash
 rm components.json
-npx shadcn@latest create --preset "https://ui.shadcn.com/init?base=radix&style=lyra&baseColor=gray&theme=yellow&iconLibrary=remixicon&font=jetbrains-mono&menuAccent=subtle&menuColor=inverted&radius=none&template=next&rtl=false" --template next
+npx shadcn@latest create --preset "<your-preset-url>" --template next
 ```
 
 Notes:
 - `create` will refuse to run if `components.json` already exists, so removing it first is expected for this workflow.
-- The starter app now lives under `/dashboard` and `/dashboard/todos`, so letting `create` overwrite `/` is safe.
+- The starter app lives under `/dashboard` and `/dashboard/todos`, so letting `create` overwrite `/` is safe.
 - The shared UI components in this repo use semantic shadcn tokens without starter-specific visual overrides, so they should inherit your generated preset cleanly.
 - This repo keeps `@/components/ui`, `@/lib`, and `@/hooks` aliases aligned with the current shadcn CLI, so future `npx shadcn@latest add ...` commands continue to work after you adopt a preset.
+- If `create` adds `@import "tw-animate-css";`, `@import "shadcn/tailwind.css";`, or `@apply border-border outline-ring/50;` back into `app/globals.css`, remove them. This starter is still on Tailwind CSS 3, and those generated lines are not compatible here.
 
 Useful docs:
 - [https://ui.shadcn.com/docs](https://ui.shadcn.com/docs)
@@ -170,9 +182,11 @@ Useful docs:
 ```txt
 app/
   (auth-pages)/
-  todos/
+  dashboard/
+    todos/
   layout.tsx
   page.tsx
+  providers/
 convex/
   schema.ts
   users.ts
