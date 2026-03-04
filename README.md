@@ -40,7 +40,7 @@ If you use `asdf` or another version manager that reads `.node-version`, this re
 1. Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 2. Set up or connect a Convex project
@@ -75,7 +75,7 @@ Notes:
 4. Run the app
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
@@ -85,10 +85,10 @@ Useful routes:
 - `/dashboard`
 - `/dashboard/todos`
 
-`npm run dev` uses webpack-based dev mode for stability. If you want to try Turbopack explicitly, run:
+`pnpm dev` uses webpack-based dev mode for stability. If you want to try Turbopack explicitly, run:
 
 ```bash
-npm run dev:turbo
+pnpm dev:turbo
 ```
 
 ## Optional Clerk setup
@@ -109,16 +109,16 @@ That’s it. Convex does not require Clerk env vars in this starter by default.
 ## Scripts
 
 ```bash
-npm run dev
-npm run dev:turbo
-npm run build
-npm run start
-npm run test
-npm run test:run
-npm run test:coverage
-npm run convex:configure
-npm run convex:dev
-npm run convex:codegen
+pnpm dev
+pnpm dev:turbo
+pnpm build
+pnpm start
+pnpm test
+pnpm test:run
+pnpm test:coverage
+pnpm convex:configure
+pnpm convex:dev
+pnpm convex:codegen
 ```
 
 ## Testing
@@ -139,9 +139,9 @@ The baseline in this repo covers the public todo flow from both sides:
 Run the suite with:
 
 ```bash
-npm run test
-npm run test:run
-npm run test:coverage
+pnpm test
+pnpm test:run
+pnpm test:coverage
 ```
 
 ### File layout
