@@ -113,10 +113,72 @@ npm run dev
 npm run dev:turbo
 npm run build
 npm run start
+npm run test
+npm run test:run
+npm run test:coverage
 npm run convex:configure
 npm run convex:dev
 npm run convex:codegen
 ```
+
+## Testing
+
+This starter uses:
+
+- Vitest for the test runner
+- `convex-test` for backend Convex function tests
+- React Testing Library for frontend tests
+
+The baseline in this repo covers the public todo flow from both sides:
+
+- [`convex/todos.test.ts`](./convex/todos.test.ts) exercises the Convex todo functions with `convex-test`
+- [`components/todos/create-todo-dialog.test.tsx`](./components/todos/create-todo-dialog.test.tsx) covers the create dialog from the user’s perspective
+- [`components/todos/todo-table.test.tsx`](./components/todos/todo-table.test.tsx) covers todo table behavior from the user’s perspective
+- [`app/dashboard/todos/page.test.tsx`](./app/dashboard/todos/page.test.tsx) covers the main todo page with mocked Convex hooks
+
+Run the suite with:
+
+```bash
+npm run test
+npm run test:run
+npm run test:coverage
+```
+
+### File layout
+
+Tests live next to the code they cover:
+
+- `convex/todos.ts` -> `convex/todos.test.ts`
+- `components/todos/create-todo-dialog.tsx` -> `components/todos/create-todo-dialog.test.tsx`
+- `components/todos/todo-table.tsx` -> `components/todos/todo-table.test.tsx`
+- `app/dashboard/todos/page.tsx` -> `app/dashboard/todos/page.test.tsx`
+
+Shared frontend test helpers live in [`test-utils/render.tsx`](./test-utils/render.tsx).
+
+### Frontend testing guidance
+
+Frontend tests in this starter should always follow React Testing Library best practices:
+
+- test from the user’s point of view
+- query by role, label, placeholder, or visible text before using weaker selectors
+- use `userEvent` for typing, clicking, and other interactions
+- avoid testing implementation details like component state, hook internals, callback ordering, CSS classes, or DOM structure unless there is no better user-visible assertion
+
+### Adding new tests
+
+To add a new Convex test:
+
+1. Create a `*.test.ts` file next to the Convex module you are testing.
+2. Create a new `const t = convexTest(schema)` in each test.
+3. Call your functions with `t.query`, `t.mutation`, or `t.action`.
+4. Use `t.run` when you need to seed or inspect data directly.
+
+To add a new frontend behavior test:
+
+1. Create a `*.test.tsx` file next to the component or page.
+2. Import `render` from [`test-utils/render.tsx`](./test-utils/render.tsx).
+3. Drive the UI with `userEvent`.
+4. Assert only on behavior a user can observe.
 
 ## Deployment
 
